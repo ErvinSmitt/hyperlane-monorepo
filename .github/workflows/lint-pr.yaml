@@ -1,5 +1,6 @@
 name: 'Lint PR'
 
+# Trigger the workflow on pull request events
 on:
   pull_request_target:
     types:
@@ -7,14 +8,17 @@ on:
       - edited
       - synchronize
 
+# Define the permissions for the workflow
 permissions:
   pull-requests: read
 
 jobs:
-  main:
+  validate-pr-title:
     name: Validate PR title
     runs-on: ubuntu-latest
     steps:
-      - uses: amannn/action-semantic-pull-request@cfb60706e18bc85e8aec535e3c577abe8f70378e
+      # Use the action to validate the semantic pull request
+      - name: Check PR title for semantic correctness
+        uses: amannn/action-semantic-pull-request@cfb60706e18bc85e8aec535e3c577abe8f70378e
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
